@@ -53,7 +53,7 @@ class App
     public function displayWooCommerceMissingAlert(): void
     {
         echo '<div class="notice error">
-                <p><strong>Woocommerce Product Price Converter:</strong> Por favor, instale o WooCommerce para utilizar a integração com o Alfa Transportes</p>
+                <p><strong>Woocommerce Product Price Converter:</strong> Por favor, instale o WooCommerce para utilizar o Woocommerce Product Price Converter</p>
               </div>';
     }
 }

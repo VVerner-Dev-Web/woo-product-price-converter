@@ -4,11 +4,11 @@ $updateIntervalTime = isset($_POST['update_interval_time']) ? $_POST['update_int
 
 if($updateIntervalTime) :
     if (isset($_POST['_wpnonce']) && wp_verify_nonce($_POST['_wpnonce'], $_POST['action']) ) : 
-        update_option('update_interval_time', $updateIntervalTime, false);
+        update_option('converter_price/update_interval_time', $updateIntervalTime, false);
     endif;
 endif;
 
-$IntervalTime = $updateIntervalTime ? $updateIntervalTime : get_option('update_interval_time');
+$IntervalTime = $updateIntervalTime ? $updateIntervalTime : get_option('converter_price/update_interval_time');
 
 $timeOptions = [
     ['option_value' => 5 * MINUTE_IN_SECONDS, 'option_text' => '5 minutos'],
@@ -21,19 +21,16 @@ $timeOptions = [
     ['option_value' => 12 * HOUR_IN_SECONDS, 'option_text' => '12 horas'],
     ['option_value' => DAY_IN_SECONDS, 'option_text' => '1 dia'],    
 ];
-
-
-
-
 ?>
+
 <div class="wrap">
     
     <h2>Conversão de preços</h2>
     
-    <form method="POST">
+    <form  class="form-table" method="POST">
         <table>
             <tr>
-                <td>Intervalo de atualização de preços</td>
+                <th>Intervalo de atualização de preços</th>
                 <td>
                     <select name="update_interval_time">
                         <?php foreach ($timeOptions as $timeOption) :?>
@@ -43,11 +40,11 @@ $timeOptions = [
                 </td>
             </tr>
             <tr>
-                <th>
+                <td>
                     <?php wp_nonce_field('update_option');?>
                     <input type="hidden" name="action" value="update_option">
                     <button class="button-primary">Salvar</button>
-                </th>
+                </td>
             </tr>
         </table>
     </form>
