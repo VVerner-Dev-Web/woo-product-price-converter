@@ -16,7 +16,11 @@ function setAllWooCommerceProductsPrice():void
 
         foreach ($products as $product) :
             $realValue = (float) $product->get_meta('converter_price/product_brl_price');
-            $newProductPrice = $realValue * $bidValue;
+
+            if (!$realValue) continue;
+
+            $newProductPrice = $realValue / $bidValue;
+            $newProductPrice = round($newProductPrice, 2);
             $product->set_regular_price($newProductPrice);
             $product->add_meta_data('converter_price/product_brl_price_last_update',date('y-m-d h:i:s'), true);
             $product->save();
