@@ -21,20 +21,19 @@ function setAllWooCommerceProductsPrice():void
             $newProductPrice = $dollarValue * $bidValue;
             $newProductPrice = round($newProductPrice, 2);
             $product->set_regular_price($newProductPrice);
-            $product->add_meta_data('converter_price/product_usd_price_last_update',date('y-m-d h:i:s'), true);
+            $product->add_meta_data('converter_price/product_usd_price_last_update',date('Y-m-d h:i:s'), true);
             $product->save();
         endforeach;
     endif;
 }
 
 
-add_filter('woocommerce_product_get_price', function($price, $product){
-    //Valor a ser mostrado
-    $dollarValue = $product->get_meta('converter_price/product_usd_price');
-    return $dollarValue ? $dollarValue : $price;
-}, 10, 2);
-
-add_filter('woocommerce_currency',function($currency){
-    //Moeda
-    return $currency;
-});
+add_filter( 'woocommerce_get_price_suffix', function($html, $product, $price, $qty) {
+    $dollarValue = (float) $product->get_meta('converter_price/product_usd_price');
+    
+    if ($dollarValue) : 
+        $html .= ' <small>$ ('. number_format($dollarValue, 2, ',', ',') .')</small>';
+    endif;
+    
+    return $html;
+}, 99, 4 );
