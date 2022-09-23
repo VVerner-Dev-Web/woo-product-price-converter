@@ -13,8 +13,9 @@ class Api
 
     public function getBidValue(string $from, string $to): float
     {
+        $key = $from.$to;
         $response = $this->fetch($from .'-'. $to);
-        return $response ? (float) $response->USDBRL->bid : 0;
+        return $response ? (float) $response->$key->bid : 0;
     }
 
     private function fetch(string $endpoint): ?stdClass
