@@ -32,7 +32,7 @@ add_filter( 'woocommerce_get_price_suffix', function($html, $product, $price, $q
     $dollarValue = (float) $product->get_meta('converter_price/product_usd_price');
     
     if ($dollarValue) : 
-        $html .= ' <small>$ ('. number_format($dollarValue, 2, ',', ',') .')</small>';
+        $html .= ' <small>($ '. number_format($dollarValue, 2, ',', ',') .')</small>';
     endif;
     
     return $html;
